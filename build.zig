@@ -9,13 +9,13 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize
     });
 
-    const zig_spi = b.createModule(.{
+    const zig_spidev = b.createModule(.{
        .root_source_file = b.path("src/root.zig"),
        .target = target,
        .optimize = optimize,
     });
-    zig_spi.addImport("gpio", zig_gpio.module("gpio"));
+    zig_spidev.addImport("gpio", zig_gpio.module("gpio"));
 
-    try b.modules.put(b.dupe("zig_spi"), zig_spi);
+    try b.modules.put(b.dupe("zig_spidev"), zig_spidev);
     try b.modules.put(b.dupe("gpio"), zig_gpio.module("gpio"));
 }
