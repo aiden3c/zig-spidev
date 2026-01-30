@@ -50,7 +50,7 @@ pub const SPI = struct {
             return error.IoctlFailed;
     }
 
-    fn spiWriteByte(Self: *SPI, data: u8) !void {
+    pub fn spiWriteByte(Self: *SPI, data: u8) !void {
         var buf: [1]u8 = .{data};
         var tr = spi_ioc_transfer{
             .tx_buf = @intFromPtr(&buf[0]),
@@ -66,7 +66,7 @@ pub const SPI = struct {
             return error.IoctlFailed;
     }
 
-    fn spiWriteBytes(Self: *SPI, data: []const u8) !void {
+    pub fn spiWriteBytes(Self: *SPI, data: []const u8) !void {
         var tr = spi_ioc_transfer{
             .tx_buf = @intFromPtr(data.ptr),
             .rx_buf = 0,
