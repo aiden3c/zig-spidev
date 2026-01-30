@@ -1,4 +1,3 @@
-//! By convention, root.zig is the root source file when making a library.
 const gpio = @import("gpio");
 pub const std = @import("std");
 
@@ -33,7 +32,6 @@ pub const SPI = struct {
     const SPI_IOC_WR_MAX_SPEED_HZ: u32 = _IOW(4, @sizeOf(u32));
 
     fn SPI_IOC_MESSAGE(n: u32) u32 {
-        // _IOW(SPI_IOC_MAGIC, 0, struct spi_ioc_transfer[n])
         return ((1 << 30) | ((@sizeOf(spi_ioc_transfer) * n) << 16) | (@as(u32, SPI_IOC_MAGIC) << 8));
     }
 
