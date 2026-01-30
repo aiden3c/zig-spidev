@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn build(b: *std.Build) void {
+pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
@@ -14,7 +14,8 @@ pub fn build(b: *std.Build) void {
        .target = target,
        .optimize = optimize,
     });
-
     zig_spi.addImport("gpio", zig_gpio.module("gpio"));
 
+    try b.modules.put(b.dupe("zig_spi"), zig_spi);
+    try b.modules.put(b.dupe("gpio"), zig_gpio.module("gpio"));
 }
